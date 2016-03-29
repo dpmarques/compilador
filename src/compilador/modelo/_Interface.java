@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package compilador;
+package compilador.modelo;
 
 /**
+ *
  *
  * @author comp15
  */
@@ -14,6 +15,7 @@ public class _Interface extends javax.swing.JFrame {
     /**
      * Creates new form _Interface
      */
+    
     public _Interface() {
         initComponents();
     }
@@ -57,6 +59,11 @@ public class _Interface extends javax.swing.JFrame {
         jLabel1.setText("Arquivo:");
 
         jTextField1.setText(".txt");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Salvar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +100,7 @@ public class _Interface extends javax.swing.JFrame {
 
         jTextArea1.setBackground(new java.awt.Color(0, 0, 0));
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Lucida Bright", 0, 13)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setRows(5);
         jTextArea1.setCaretColor(new java.awt.Color(255, 255, 255));
@@ -243,6 +251,10 @@ public class _Interface extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
