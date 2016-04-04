@@ -5,6 +5,11 @@
  */
 package compilador.modelo;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
+import compilador.arquivo.WriteFile;
+import java.io.File;
+
+
 /**
  *
  *
@@ -15,8 +20,12 @@ public class _Interface extends javax.swing.JFrame {
     /**
      * Creates new form _Interface
      */
+    String diretorio= new String();
+    String codigo= new String();
+     
     
     public _Interface() {
+        
         initComponents();
     }
 
@@ -64,6 +73,11 @@ public class _Interface extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Salvar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +118,11 @@ public class _Interface extends javax.swing.JFrame {
         jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setRows(5);
         jTextArea1.setCaretColor(new java.awt.Color(255, 255, 255));
+        jTextArea1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextArea1FocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout PainelTextoLayout = new javax.swing.GroupLayout(PainelTexto);
@@ -207,6 +226,11 @@ public class _Interface extends javax.swing.JFrame {
         jMenu2.setText("Executar");
 
         jMenuItem4.setText("Compilar");
+        jMenuItem4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem4MousePressed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         BarraMenu.add(jMenu2);
@@ -246,6 +270,7 @@ public class _Interface extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+       WriteFile.escrever(codigo);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -254,8 +279,27 @@ public class _Interface extends javax.swing.JFrame {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+        diretorio=jTextField1.getText();
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jMenuItem4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem4MousePressed
+        // TODO add your handling code here:
+        codigo=jTextArea1.getText();
+    }//GEN-LAST:event_jMenuItem4MousePressed
+
+    private void jTextArea1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextArea1FocusLost
+        // TODO add your handling code here:
+        codigo=jTextArea1.getText();
+    }//GEN-LAST:event_jTextArea1FocusLost
+  public static void gerarLexer(String caminho){
+    File file = new File(caminho);
+    JFlex.Main.generate(file);
+    }
     /**
      * @param args the command line arguments
      */
@@ -284,8 +328,11 @@ public class _Interface extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                String caminho="C:/Users/kigs/Desktop/AnalisadorLexico/src/analisador/Lexer.flex";
+                    gerarLexer(caminho);
                 new _Interface().setVisible(true);
             }
         });
