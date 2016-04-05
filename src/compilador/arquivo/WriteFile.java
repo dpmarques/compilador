@@ -21,7 +21,7 @@ public class WriteFile {
             e.printStackTrace();
         }*/
         try{
-        String logFile = "C:/Users/kigs/Desktop/codigo.txt";
+        String logFile = "C:/Users/comp15/Desktop/asd/codigo.txt";
 
             FileWriter fileWriter = new FileWriter(logFile, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
