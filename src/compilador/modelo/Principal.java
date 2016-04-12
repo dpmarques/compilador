@@ -4,16 +4,23 @@
  * and open the template in the editor.
  */
 package compilador.modelo;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
+import compilador.arquivo.WriteFile;
+import compilador.arquivo.ReaderFile;
 
-/**
- *
- * @author comp15
- */
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 public class Principal extends javax.swing.JFrame {
 
     /**
      * Creates new form Principal
      */
+    String nome_arq= new String();
+    String codigo= new String();
+    public Salvar salvar;
+    public Abrir abrir;
+    
     public Principal() {
         initComponents();
     }
@@ -41,6 +48,11 @@ public class Principal extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,7 +60,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setText("Arquivo:");
 
-        jTextField1.setText(".txt");
+        jTextField1.setText("Codigo.txt");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -213,7 +225,7 @@ public class Principal extends javax.swing.JFrame {
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(PainelArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PainelTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,17 +234,42 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jMenu1.setText("Arquivo");
+
+        jMenuItem1.setText("Novo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Abrir");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Compilar");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -250,9 +287,32 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        try {
+          JFileChooser salvar_arq = new JFileChooser();
+          //salvar_arq.setCurrentDirectory("/Imagens");
+          salvar_arq.setDialogTitle("Salvar arquivo");
+          salvar_arq.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
+             int res = salvar_arq.showSaveDialog(salvar);
+                    if(res == JFileChooser.APPROVE_OPTION){
+                        File diretorio = salvar_arq.getCurrentDirectory();
+                        //JOptionPane.showMessageDialog(null, "Voce escolheu o diretório: " + diretorio.getName());
+                        nome_arq=salvar_arq.getSelectedFile()+"/"+jTextField1.getText();
+                        JOptionPane.showMessageDialog(null, nome_arq);
+                        codigo=jTextArea1.getText();
+                        WriteFile.escrever(codigo,nome_arq);
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "Voce nao selecionou nenhum diretorio."); 
         Salvar salvar = new Salvar();
-        jDesktopPane1.add(salvar);
-        salvar.setVisible(true);
+        
+        //jDesktopPane1.add(salvar);
+        //salvar.setVisible(true);
+        }
+        catch(Exception erro){
+            JOptionPane.showMessageDialog(null, "Não foi possivel salvar o arquivo");
+        }
+        
+        
 
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -268,9 +328,65 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTextArea1FocusLost
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        try {
+  
+    // Abre o JFileChooser
+   
+    
+    class MyFilter extends javax.swing.filechooser.FileFilter {
+        public boolean accept(File diretorio) {
+            String ext = diretorio.getName();
+            return ext.endsWith(".txt");
+        }
+        public String getDescription() {
+            return "*.txt";
+        }
+    }
+            
+           
+
+          JFileChooser abrir_arq = new JFileChooser();
+          
+          abrir_arq.addChoosableFileFilter(new MyFilter());
+          //salvar_arq.setCurrentDirectory("/Imagens");
+          abrir_arq.setDialogTitle("Abrir arquivo");
+          abrir_arq.setFileSelectionMode(JFileChooser.OPEN_DIALOG);
+             int res2 = abrir_arq.showSaveDialog(abrir);
+                    if(res2 == JFileChooser.APPROVE_OPTION){
+                        File diretorio = abrir_arq.getSelectedFile();
+                       
+                       // JOptionPane.showMessageDialog(null, "Voce escolheu o diretório: " + diretorio.getName());
+                        codigo=abrir_arq.getCurrentDirectory()+"/"+abrir_arq.getName(diretorio);
+                        //JOptionPane.showMessageDialog(null, codigo);
+                        codigo=ReaderFile.LerCodigo(codigo);
+                        jTextArea1.setText(codigo);
+                        
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "Voce nao selecionou nenhum Arquivo."); 
+        //Salvar salvar = new Salvar();
+        
+        //jDesktopPane1.add(salvar);
+        //salvar.setVisible(true);
+        }
+        catch(Exception erro){
+            JOptionPane.showMessageDialog(null, "Não foi possivel abrir o arquivo");
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
+     public static void gerarLexer(String caminho){
+    File file = new File(caminho);
+    JFlex.Main.generate(file);
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -298,6 +414,8 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                String caminho="C:/Users/kigs/Desktop/AnalisadorLexico/src/analisador/Lexer.flex";
+                    gerarLexer(caminho);
                 new Principal().setVisible(true);
             }
         });
@@ -311,6 +429,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
