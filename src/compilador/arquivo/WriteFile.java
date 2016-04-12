@@ -6,10 +6,11 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import javax.swing.JOptionPane;
 
 
 public class WriteFile {
-        public static void escrever(String codigo) {
+        public static void escrever(String codigo,String nome_arq) {
         /*try {
             FileOutputStream fileOutputStream = new FileOutputStream("codigo.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -21,15 +22,15 @@ public class WriteFile {
             e.printStackTrace();
         }*/
         try{
-        String logFile = "C:/Users/comp15/Desktop/asd/codigo.txt";
+       // String local = "C:/Users/comp15/Desktop/asd/codigo.txt";
 
-            FileWriter fileWriter = new FileWriter(logFile, true);
+            FileWriter fileWriter = new FileWriter(nome_arq, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(codigo);
             bufferedWriter.flush();
             bufferedWriter.close();
-        } catch (IOException e){
-        
+        } catch (IOException erro){
+            JOptionPane.showMessageDialog(null, erro);
         }
         
     }

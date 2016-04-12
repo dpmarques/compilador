@@ -9,12 +9,12 @@ package compilador.modelo;
  *
  * @author comp15
  */
-public class Salvar extends javax.swing.JInternalFrame {
+public class Abrir extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NovoJInternalFrame
      */
-    public Salvar() {
+    public Abrir() {
         initComponents();
     }
 
@@ -32,10 +32,9 @@ public class Salvar extends javax.swing.JInternalFrame {
         setTitle("Salvar");
 
         jFileChooser1.setAcceptAllFileFilterUsed(false);
-        jFileChooser1.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
         jFileChooser1.setCurrentDirectory(new java.io.File("C:\\Users\\kigs"));
-        jFileChooser1.setDialogTitle("");
-        jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+        jFileChooser1.setFileFilter(jFileChooser1.getFileFilter());
+        jFileChooser1.setFileHidingEnabled(true);
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
@@ -58,6 +57,8 @@ public class Salvar extends javax.swing.JInternalFrame {
                 .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        getAccessibleContext().setAccessibleName("Abrir");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

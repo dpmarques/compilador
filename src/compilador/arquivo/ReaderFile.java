@@ -15,9 +15,9 @@ import java.io.IOException;
  * @author kigs
  */
 public class ReaderFile {
-    public String CodigoFonte() throws IOException {
+    public static String LerCodigo(String codigo) throws IOException {
         //File f = new File("C://ultimoUsuario.txt");
-        File f = new File("C:/Users/kigs/Desktop/codigo.txt");
+        File f = new File(codigo);
         String linha = "";
         
         if (f.exists()) {
