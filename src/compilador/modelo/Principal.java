@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 package compilador.modelo;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import compilador.arquivo.WriteFile;
 import compilador.arquivo.ReaderFile;
-
+import compilador.modelo.Principal;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,7 +19,8 @@ public class Principal extends javax.swing.JFrame {
     String codigo= new String();
     public Salvar salvar;
     public Abrir abrir;
-    
+   // public  Analisador ana= new Analisador();
+    public Analisador ana = new Analisador();
     public Principal() {
         initComponents();
     }
@@ -45,9 +45,9 @@ public class Principal extends javax.swing.JFrame {
         PainelAnalizador = new javax.swing.JPanel();
         PainelTabela = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTextArea2 = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTextArea3 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -144,48 +144,17 @@ public class Principal extends javax.swing.JFrame {
 
         jScrollPane2.setName(""); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Linha", "Codigo", "Token"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        jTextArea2.setEditable(false);
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane2.setViewportView(jTextArea2);
 
         PainelTabela.addTab("Análise Lexico", jScrollPane2);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Linha", "Erro"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable2);
+        jTextArea3.setEditable(false);
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jScrollPane3.setViewportView(jTextArea3);
 
         PainelTabela.addTab("Erros", jScrollPane3);
 
@@ -255,6 +224,16 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Compilar");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
+        jMenu2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jMenu2KeyPressed(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -380,12 +359,22 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+        ana.Compilar(this);
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenu2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenu2KeyPressed
+        // TODO add your handling code here:
+        ana.Compilar(this);
+    }//GEN-LAST:event_jMenu2KeyPressed
+
     /**
      * @param args the command line arguments
      */
      public static void gerarLexer(String caminho){
     File file = new File(caminho);
-    JFlex.Main.generate(file);
+    //JFlex.Main.generate(file);
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -414,17 +403,17 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                String caminho="C:/Users/kigs/Desktop/AnalisadorLexico/src/analisador/Lexer.flex";
-                    gerarLexer(caminho);
+                //String caminho="C:/Users/kigs/Desktop/AnalisadorLexico/src/analisador/Lexer.flex";
+                  //  gerarLexer(caminho);
                 new Principal().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PainelAnalizador;
+    public javax.swing.JPanel PainelAnalizador;
     private javax.swing.JPanel PainelArquivo;
-    private javax.swing.JTabbedPane PainelTabela;
+    public javax.swing.JTabbedPane PainelTabela;
     private javax.swing.JPanel PainelTexto;
     private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -437,9 +426,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextArea jTextArea1;
+    public javax.swing.JTextArea jTextArea1;
+    public javax.swing.JTextArea jTextArea2;
+    public javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
